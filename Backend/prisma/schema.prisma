@@ -1,0 +1,65 @@
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+enum Estado {
+    activo
+    inactivo
+    agotado
+}
+
+model User {
+    user_id    String    @id @default(uuid())
+    username   String
+    email      String    @unique
+    password   String?
+    avatar_url String?
+    createdAt  DateTime  @default(now())
+    lastLogin  DateTime?
+    isActive   Boolean   @default(true)
+
+    rol_id Int
+    role   Role @relation(fields: [rol_id], references: [rol_id])
+
+    productos Product[]
+}
+
+model Role {
+    rol_id Int    @id @default(autoincrement())
+    rol    String
+
+    users User[]
+}
+
+model Product {
+    producto_id        String   @id @default(uuid())
+    nombre             String
+    precio             Float
+    imagen             String?
+    descripcion        String
+    fechaCreacion      DateTime @default(now())
+    fechaActualizacion DateTime @updatedAt
+    stock              Int
+    stockMinimo        Int      @default(5)
+    estado_id          Estado
+    is_active          Boolean  @default(true)
+    codigoSKU          String?  @unique
+
+    categoria_id Int
+    vendedor_id  String
+
+    categoria Categoria @relation(fields: [categoria_id], references: [categoria_id])
+    vendedor  User      @relation(fields: [vendedor_id], references: [user_id])
+}
+
+model Categoria {
+    categoria_id Int    @id @default(autoincrement())
+    categoria    String
+
+    productos Product[]
+}
