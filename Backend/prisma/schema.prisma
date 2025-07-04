@@ -22,18 +22,7 @@ model User {
     createdAt  DateTime  @default(now())
     lastLogin  DateTime?
     isActive   Boolean   @default(true)
-
-    rol_id Int
-    role   Role @relation(fields: [rol_id], references: [rol_id])
-
     productos Product[]
-}
-
-model Role {
-    rol_id Int    @id @default(autoincrement())
-    rol    String
-
-    users User[]
 }
 
 model Product {

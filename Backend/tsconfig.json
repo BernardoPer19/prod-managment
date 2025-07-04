@@ -1,0 +1,43 @@
+{
+  "compilerOptions": {
+
+    "target": "ES2020",
+    "outDir": "dist",
+    "rootDir": "./src",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+
+"module": "commonjs",
+"moduleResolution": "node",
+
+    "strict": true,
+    "strictNullChecks": true,
+    "strictBindCallApply": true,
+    "strictFunctionTypes": true,
+    "strictPropertyInitialization": true,
+    "noImplicitThis": true,
+
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "isolatedModules": true,
+
+    "noEmitOnError": true,
+
+    "baseUrl": "./src",
+    "paths": {
+      "@/*": ["*"],
+      "@config/*": ["config/*"],
+      "@features/*": ["feature/*"],
+      "@middlewares/*": ["middlewares/*"],
+      "@types/*": ["types/*"],
+      "@utils/*": ["utils/*"]
+    }
+  },
+  "include": ["src"],
+  "exclude": ["node_modules"]
+}

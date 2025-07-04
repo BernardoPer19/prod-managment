@@ -12,25 +12,7 @@ export interface Category {
   productos?: ProductType[];      // productos relacionados (opcional)
 }
 
-export interface User {
-  userId: string;             // user_id (UUID)
-  username: string;
-  email: string;
-  password?: string;
-  avatarUrl?: string;
-  createdAt: Date;
-  lastLogin?: Date;
-  isActive: boolean;
-  rolId: number;              // rol_id
-  role?: Role;                // relación Role
-  productos?: ProductType[];      // productos que vende el usuario (opcional)
-}
 
-export interface Role {
-  rolId: number;
-  rol: string;
-  users?: User[];
-}
 
 export interface ProductType {
   productoId: string;         // producto_id (UUID)

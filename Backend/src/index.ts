@@ -1,8 +1,8 @@
 import express, { Application, Request, Response, NextFunction } from 'express';
 import helmet from 'helmet';
 import cors from 'cors';
-import { ProductController } from './feature/Products/controllers/ProductController';
 import { productRouter } from './feature/Products/routes/products.routes';
+import AuthRouter from './feature/Auth/routes/Auth.routes';
 
 const app: Application = express();
 const PORT = process.env.PORT || 3000;
@@ -15,12 +15,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use('/products', productRouter);
 
-
-
-
-
-
-
+app.use("/", AuthRouter); 
 
 
 
