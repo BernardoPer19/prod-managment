@@ -2,7 +2,7 @@ import { prisma } from "@/config/prisma";
 import { registerType, UserType } from "../types/AuthType";
 import { User } from "@prisma/client";
 import { RegisterTypeSchema } from "../schemas/AuthSchema";
-import { hashingPassword } from "../utils/authUtils";
+import { comparePassword, hashingPassword } from "../utils/authUtils";
 
 class AuthService {
 
@@ -43,6 +43,42 @@ class AuthService {
             throw new Error("No se pudo registrar el usuario");
         }
     };
+
+    public loginService = async (email: string, password: string) => {
+        try {
+
+            const user = await this.existingEmail(email)
+            if (!user) {
+                throw new Error("No existe el usuario")
+            }
+
+            const compareUserPassword = await comparePassword(password, user.password!)
+            if (!compareUserPassword) {
+                throw new Error("Contraseña incorrecta")
+            }
+            return user
+        } catch (error) {
+            throw new Error("Error al iniciar sesion");
+
+        }
+    }
+
+    public getUserProfile = async (user_id:string) => {
+        try {
+            const user = await prisma.user.findUnique({
+                where: {user_id}
+            })
+
+            if (!user) {
+                throw new Error("No se encontro el usuario");
+                
+            }
+
+            return user
+        } catch (error) {
+            
+        }
+    }
 
 }
 

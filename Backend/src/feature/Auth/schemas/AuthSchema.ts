@@ -15,14 +15,11 @@ export const UserSchema = z.object({
         .preprocess(arg => (typeof arg === 'string' ? new Date(arg) : arg), z.date())
         .optional(),
     avatar_url: z.string().url({ message: "URL de avatar inválida" }).optional(),
-    role: z.nativeEnum(Roles),
+    role: z.nativeEnum(Roles).optional(),
 });
 
 
 const LoginSchema = z.object({
-    username: z
-        .string()
-        .min(3, "El nombre de usuario debe tener al menos 3 caracteres").optional(),
     email: z.string().email("Email no válido"),
     password: z.string().min(6, "La contraseña debe tener al menos 6 caracteres"),
 });
